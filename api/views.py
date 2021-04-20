@@ -1,6 +1,6 @@
 import datetime
 
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response, url_for, render_template
 from flask_restful import Api, Resource
 from models import db, Category, CategorySchema, Message, MessageSchema
 from sqlalchemy.exc import SQLAlchemyError
@@ -9,6 +9,7 @@ from helpers import PaginationHelper
 from flask_httpauth import HTTPBasicAuth
 from flask import g
 from models import User, UserSchema
+from email_utils import send_email
 from token_mail import generate_confirmation_token, confirm_token
 
 auth = HTTPBasicAuth()
@@ -96,7 +97,13 @@ class UserListResource(Resource):
                 query = User.query.get(user.id)
                 result = user_schema.dump(query).data
                 token = generate_confirmation_token(user.email)
+                confirm_url = url_for('api.confirmtokenresources', token=token, _external=True)
+                html = render_template('user/activate.html', confirm_url=confirm_url)
+                subject = "Please confirm your email"
+                send_email(user.email, subject, html)
+
                 print(f"Token: registration: {token}")
+
                 return result, status.HTTP_201_CREATED
             else:
                 return {"error": error_message}, status.HTTP_400_BAD_REQUEST
