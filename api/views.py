@@ -6,13 +6,14 @@ from models import db, Category, CategorySchema, Message, MessageSchema
 from sqlalchemy.exc import SQLAlchemyError
 import status
 from helpers import PaginationHelper
-from flask_httpauth import HTTPBasicAuth
 from flask import g
 from models import User, UserSchema
 from email_utils import send_email
 from token_mail import generate_confirmation_token, confirm_token
 
-auth = HTTPBasicAuth()
+from image_resource import Avatar, AvatarUpload, Image, ImageUpload
+
+from auth_lib import auth, AuthRequiredResource
 
 
 @auth.verify_password
@@ -22,10 +23,6 @@ def verify_user_password(name, password):
         return False
     g.user = user
     return True
-
-
-class AuthRequiredResource(Resource):
-    method_decorators = [auth.login_required]
 
 
 api_bp = Blueprint('api', __name__)
@@ -286,3 +283,8 @@ api.add_resource(MessageResource, '/messages/<int:id>')
 api.add_resource(UserListResource, '/users/')
 api.add_resource(UserResource, '/users/<int:id>')
 api.add_resource(ConfirmTokenResources, '/users/confirm/<string:token>')
+
+api.add_resource(ImageUpload, "/upload/image")
+api.add_resource(Image, "/image/<string:filename>")
+api.add_resource(AvatarUpload, "/upload/avatar")
+api.add_resource(Avatar, "/avatar/<int:user_id>")

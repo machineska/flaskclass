@@ -27,3 +27,5 @@ MAIL_PASSWORD = os.environ['APP_MAIL_PASSWORD']
 
 # mail accounts
 MAIL_DEFAULT_SENDER = 'from@example.com'
+
+UPLOADED_IMAGES_DEST = os.path.join("static", "images")  # manage root folder
