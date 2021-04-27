@@ -28,7 +28,7 @@ class ImageUpload(AuthRequiredResource):
         folder = f"user_{user_id}"
         try:
             # save(self, storage, folder=None, name=None)
-            image_path = image_helper.save_image(data["image"], folder=folder)
+            image_path = image_helper.save_image(data[0]['image'], folder=folder)
             # here we only return the basename of the image and hide the internal folder structure from our user
             basename = image_helper.get_basename(image_path)
             return {"message": gettext("image_uploaded").format(basename)}, 201
@@ -94,15 +94,15 @@ class AvatarUpload(AuthRequiredResource):
                 return {"message": gettext("avatar_delete_failed")}, 500
 
         try:
-            ext = image_helper.get_extension(data["image"].filename)
+            ext = image_helper.get_extension(data[0]["image"].filename)
             avatar = filename + ext  # use our naming format + true extension
             avatar_path = image_helper.save_image(
-                data["image"], folder=folder, name=avatar
+                data[0]["image"], folder=folder, name=avatar
             )
             basename = image_helper.get_basename(avatar_path)
             return {"message": gettext("avatar_uploaded").format(basename)}, 200
         except UploadNotAllowed:  # forbidden file type
-            extension = image_helper.get_extension(data["image"])
+            extension = image_helper.get_extension(data[0]["image"])
             return {"message": gettext("image_illegal_extension").format(extension)}, 400
 
 
