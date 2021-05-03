@@ -97,7 +97,7 @@ class UserListResource(Resource):
                 confirm_url = url_for('api.confirmtokenresources', token=token, _external=True)
                 html = render_template('user/activate.html', confirm_url=confirm_url)
                 subject = "Please confirm your email"
-                send_email(user.email, subject, html)
+                # send_email(user.email, subject, html)
 
                 print(f"Token: registration: {token}")
 
