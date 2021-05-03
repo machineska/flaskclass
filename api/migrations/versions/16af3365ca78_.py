@@ -43,7 +43,7 @@ def upgrade():
     sa.Column('creation_date', sa.TIMESTAMP(), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.Column('category_id', sa.Integer(), nullable=False),
     sa.Column('printed_times', sa.Integer(), server_default='0', nullable=False),
-    sa.Column('printed_once', sa.Boolean(), server_default='false', nullable=False),
+    sa.Column('printed_once', sa.Boolean(), server_default='false'),
     sa.ForeignKeyConstraint(['category_id'], ['category.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('message')
