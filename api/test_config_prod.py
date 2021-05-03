@@ -12,7 +12,7 @@ SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_ADDR}/{DB_NAM
     DB_USER="skaterska",
     DB_PASS="bismillah",
     DB_ADDR="skaterska.mysql.pythonanywhere-services.com",
-    DB_NAME="messages02"
+    DB_NAME="skaterska$test_messages"
 )
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 PAGINATION_PAGE_SIZE = 5
