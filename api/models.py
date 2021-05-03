@@ -26,7 +26,7 @@ class User(db.Model, AddUpdateDelete):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     # email confirmation
-    email = db.Column(db.String, unique=True, nullable=False)
+    email = db.Column(db.String(250), unique=True, nullable=False)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
 
