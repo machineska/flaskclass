@@ -8,7 +8,12 @@ PORT = 5000
 HOST = "127.0.0.1"
 SQLALCHEMY_ECHO = False
 SQLALCHEMY_TRACK_MODIFICATIONS = True
-SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_ADDR}/{DB_NAME}".format(DB_USER="test2", DB_PASS="bismillah", DB_ADDR="127.0.0.1", DB_NAME="messages02")
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_ADDR}/{DB_NAME}".format(
+    DB_USER="skaterska",
+    DB_PASS="bismillah",
+    DB_ADDR="skaterska.mysql.pythonanywhere-services.com",
+    DB_NAME="messages02"
+)
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 PAGINATION_PAGE_SIZE = 5
 PAGINATION_PAGE_ARGUMENT_NAME = 'page'
