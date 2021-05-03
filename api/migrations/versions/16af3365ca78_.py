@@ -7,6 +7,7 @@ Create Date: 2021-04-20 11:11:07.860714
 """
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy.sql import expression
 
 
 # revision identifiers, used by Alembic.
@@ -43,7 +44,7 @@ def upgrade():
     sa.Column('creation_date', sa.TIMESTAMP(), server_default=sa.text('CURRENT_TIMESTAMP'), nullable=False),
     sa.Column('category_id', sa.Integer(), nullable=False),
     sa.Column('printed_times', sa.Integer(), server_default='0', nullable=False),
-    sa.Column('printed_once', sa.Boolean(), server_default='false', default=True, nullable=False),
+    sa.Column('printed_once', sa.Boolean(), server_default=expression.false, nullable=False),
     sa.ForeignKeyConstraint(['category_id'], ['category.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('message')
